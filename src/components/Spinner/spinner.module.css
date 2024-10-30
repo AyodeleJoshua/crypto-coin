@@ -1,0 +1,25 @@
+.spinnerContainer {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerIcon {
+  transition: all;
+  animation-name: rt;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  font-size: 40px;
+}
+
+@keyframes rt {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
