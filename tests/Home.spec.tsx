@@ -1,5 +1,5 @@
 import React from 'react';
-import { expect, test } from 'vitest';
+import { expect, it, describe } from 'vitest';
 import { render } from 'vitest-browser-react';
 import Home from '../src/pages/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -10,16 +10,37 @@ const queryClient = new QueryClient({
   },
 });
 
-test('renders name', async () => {
-  const { getByText } = render(
-    <QueryClientProvider client={queryClient}>
-      <Home />
-    </QueryClientProvider>,
-  );
+const HomepageWithQueryClientProvider = () => (
+  <QueryClientProvider client={queryClient}>
+    <Home />
+  </QueryClientProvider>
+);
 
-  await expect.element(getByText('code')).not.toBeInTheDocument()
-  // await expect.element(getByText('code')).not.toBeInTheDocument();
-  // await getByRole('button', { name: 'Increment ' }).click();
+describe('Home', () => {
+  it('should render table in dom', async () => {
+    const { getByTestId } = render(<HomepageWithQueryClientProvider />);
 
-  // await expect.element(getByText('Hello Vitest x2!')).toBeInTheDocument();
+    await expect.element(getByTestId('all-coins-table')).toBeInTheDocument();
+  });
+
+  it('previous button should not be visible when page is first loaded', async () => {
+    const { getByTestId } = render(<HomepageWithQueryClientProvider />);
+
+    await expect
+      .element(getByTestId('previous-button'))
+      .not.toBeInTheDocument();
+  });
+
+  it('next button should be visible when page is first loaded', async () => {
+    const { getByTestId } = render(<HomepageWithQueryClientProvider />);
+
+    await expect.element(getByTestId('next-button')).toBeInTheDocument();
+  });
+
+  it('previous button should be visible when next button is clicked', async () => {
+    const { getByTestId } = render(<HomepageWithQueryClientProvider />);
+
+    await getByTestId('next-button').click();
+    await expect.element(getByTestId('previous-button')).toBeInTheDocument();
+  });
 });

@@ -36,6 +36,7 @@ const Pagination = ({
           onClick={() => handlePaginationChange('decrement')}
           aria-disabled={page < 1}
           disabled={page < 1}
+          data-testid="previous-button"
         >
           <GoArrowLeft className={styles.icon} aria-hidden="true" />
           Previous
@@ -45,6 +46,7 @@ const Pagination = ({
       <button
         className={`${styles.actionButton} ${styles.incrementButton}`}
         onClick={() => handlePaginationChange('increment')}
+        data-testid="next-button"
       >
         Next
         <GoArrowRight className={styles.icon} aria-hidden="true" />

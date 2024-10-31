@@ -15,6 +15,7 @@ interface TableProps {
   total?: number;
   ariaLabel?: string;
   onPaginationChange?: (pageSize: number, newPage: number) => void;
+  testId?: string;
 }
 
 const Table = ({
@@ -25,10 +26,11 @@ const Table = ({
   currentPage,
   ariaLabel = 'Table presenting data',
   onPaginationChange,
+  testId,
 }: TableProps) => {
   return (
     <div className={styles.tableContainer}>
-      <table className={styles.table}>
+      <table className={styles.table} data-testid={testId}>
         <thead className={styles.tableHead}>
           <tr>
             {columns.map((column) => (

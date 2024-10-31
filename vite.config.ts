@@ -20,4 +20,7 @@ export default defineConfig({
       enabled: true,
     },
   },
+  optimizeDeps: {
+    exclude: ['js-big-decimal'],
+  },
 });
