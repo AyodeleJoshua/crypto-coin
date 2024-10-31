@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner, Table } from '../../components';
-import config from '../../../__mock__.json';
 import { getAllCoinsData } from '../../services/crypto.services';
 import styles from './home.module.scss';
 
@@ -17,7 +16,7 @@ interface AllCoinsData {
     symbol: string;
     name: string;
     price_usd: string;
-    csupply: string;
+    tsupply: string;
   }[];
 }
 
@@ -26,6 +25,7 @@ const Home = () => {
     page: 0,
     pageSize: 10,
   });
+
   const {
     isLoading: isLoadingAllCoinsData,
     data: allCoinsData,
@@ -39,6 +39,7 @@ const Home = () => {
       ),
     queryKey: ['all-coins', queryParams.page, queryParams.pageSize],
   });
+
   return (
     <>
       {isLoadingAllCoinsData && !allCoinsData && <Spinner />}
@@ -46,11 +47,17 @@ const Home = () => {
       {!isLoadingAllCoinsData && allCoinsData && (
         <Table
           columns={columns}
-          dataSource={allCoinsData.data}
+          dataSource={allCoinsData.data.map((coinData) => ({
+            ...coinData,
+            tsupply: `${Number(coinData.tsupply).toLocaleString()} ${
+              coinData.symbol
+            }`,
+            price_usd: `$${Number(coinData.price_usd)?.toLocaleString()}`,
+          }))}
           showPagination={true}
-          total={config.data.length}
-          currentPage={1}
-          pageSize={10}
+          total={allCoinsData.data.length}
+          currentPage={queryParams.page + 1}
+          pageSize={queryParams.pageSize}
           onPaginationChange={(_, newPage) =>
             setQueryParams({ ...queryParams, page: newPage })
           }
