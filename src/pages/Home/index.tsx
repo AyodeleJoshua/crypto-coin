@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Spinner, Table } from '../../components';
 import { getAllCoinsData } from '../../services/crypto.services';
-import styles from './home.module.scss';
+import styles from './home.module.css';
 
 const columns = [
   { key: 'name', title: '💰 Coin' },
