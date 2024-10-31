@@ -17,21 +17,25 @@ const Pagination = ({
 
   const handlePaginationChange = (actionType: 'increment' | 'decrement') => {
     let newPageNumber = page;
+
     if (actionType === 'increment') {
       newPageNumber++;
     } else {
       newPageNumber--;
     }
+
     setPage(newPageNumber);
     onPaginationChange(pageSize, newPageNumber);
   };
 
   return (
     <div className={styles.paginationContainer}>
-      {page > 1 && (
+      {page >= 1 && (
         <button
           className={styles.actionButton}
           onClick={() => handlePaginationChange('decrement')}
+          aria-disabled={page < 1}
+          disabled={page < 1}
         >
           <GoArrowLeft className={styles.icon} aria-hidden="true" />
           Previous

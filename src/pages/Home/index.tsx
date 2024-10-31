@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Spinner, Table } from '../../components';
 import { getAllCoinsData } from '../../services/crypto.services';
 import styles from './home.module.scss';
@@ -21,10 +21,25 @@ interface AllCoinsData {
 }
 
 const Home = () => {
+  const queryClient = useQueryClient();
   const [queryParams, setQueryParams] = useState({
     page: 0,
     pageSize: 10,
   });
+
+  // This useeffect prefetches the next data so that users do not see loading state when they go to next page.
+  // User only see loading state once when the page is newly loaded
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ['all-coins', queryParams.page + 1, queryParams.pageSize],
+      queryFn: () =>
+        getAllCoinsData(
+          (queryParams.page + 1) * queryParams.pageSize,
+          queryParams.pageSize,
+        ),
+      staleTime: Infinity,
+    });
+  }, [queryParams]);
 
   const {
     isLoading: isLoadingAllCoinsData,
@@ -56,7 +71,7 @@ const Home = () => {
           }))}
           showPagination={true}
           total={allCoinsData.data.length}
-          currentPage={queryParams.page + 1}
+          currentPage={queryParams.page}
           pageSize={queryParams.pageSize}
           onPaginationChange={(_, newPage) =>
             setQueryParams({ ...queryParams, page: newPage })
