@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Spinner, Table } from '../../components';
-import { getAllCoinsData } from '../../services/crypto.services';
+import getAllCoinsData from '../../services/crypto.services';
 import styles from './home.module.css';
 
 const columns = [
@@ -20,26 +20,26 @@ interface AllCoinsData {
   }[];
 }
 
-const Home = () => {
+function Home() {
   const queryClient = useQueryClient();
   const [queryParams, setQueryParams] = useState({
     page: 0,
     pageSize: 10,
   });
 
-  // This useeffect prefetches the next data so that users do not see loading state when they go to next page.
+  // This useeffect prefetches the next data so that users do not
+  // see loading state when they go to next page.
   // User only see loading state once when the page is newly loaded
   useEffect(() => {
     queryClient.prefetchQuery({
       queryKey: ['all-coins', queryParams.page + 1, queryParams.pageSize],
-      queryFn: () =>
-        getAllCoinsData(
-          (queryParams.page + 1) * queryParams.pageSize,
-          queryParams.pageSize,
-        ),
+      queryFn: () => getAllCoinsData(
+        (queryParams.page + 1) * queryParams.pageSize,
+        queryParams.pageSize,
+      ),
       staleTime: Infinity,
     });
-  }, [queryParams]);
+  }, [queryParams, queryClient]);
 
   const {
     isLoading: isLoadingAllCoinsData,
@@ -47,11 +47,10 @@ const Home = () => {
     isError: isAllCoinsFetchError,
     error: allCoinsError,
   } = useQuery<AllCoinsData>({
-    queryFn: () =>
-      getAllCoinsData(
-        queryParams.page * queryParams.pageSize,
-        queryParams.pageSize,
-      ),
+    queryFn: () => getAllCoinsData(
+      queryParams.page * queryParams.pageSize,
+      queryParams.pageSize,
+    ),
     queryKey: ['all-coins', queryParams.page, queryParams.pageSize],
   });
 
@@ -69,13 +68,10 @@ const Home = () => {
             }`,
             price_usd: `$${Number(coinData.price_usd)?.toLocaleString()}`,
           }))}
-          showPagination={true}
-          total={allCoinsData.data.length}
+          showPagination
           currentPage={queryParams.page}
           pageSize={queryParams.pageSize}
-          onPaginationChange={(_, newPage) =>
-            setQueryParams({ ...queryParams, page: newPage })
-          }
+          onPaginationChange={(_, newPage) => setQueryParams({ ...queryParams, page: newPage })}
           testId="all-coins-table"
         />
       )}
@@ -90,6 +86,6 @@ const Home = () => {
       )}
     </>
   );
-};
+}
 
 export default Home;

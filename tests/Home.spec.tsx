@@ -1,8 +1,8 @@
 import React from 'react';
 import { expect, it, describe } from 'vitest';
 import { render } from 'vitest-browser-react';
-import Home from '../src/pages/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Home from '../src/pages/Home';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,11 +10,13 @@ const queryClient = new QueryClient({
   },
 });
 
-const HomepageWithQueryClientProvider = () => (
-  <QueryClientProvider client={queryClient}>
-    <Home />
-  </QueryClientProvider>
-);
+function HomepageWithQueryClientProvider() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Home />
+    </QueryClientProvider>
+  );
+}
 
 describe('Home', () => {
   it('should render table in dom', async () => {

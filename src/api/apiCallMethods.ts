@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance';
 
-export const getRequest = async <ResponseType, paramsType>(
+const getRequest = async <ResponseType, paramsType>(
   url: string,
   params: paramsType,
 ): Promise<ResponseType> => {
@@ -9,3 +9,5 @@ export const getRequest = async <ResponseType, paramsType>(
   });
   return response.data;
 };
+
+export default getRequest;

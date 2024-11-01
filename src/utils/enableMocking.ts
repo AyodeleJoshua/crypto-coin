@@ -2,7 +2,7 @@ import environmentVariables from './environmentVariables';
 
 async function enableMocking() {
   if (environmentVariables.nodeEnv !== 'development') {
-    return;
+    return '';
   }
   const { worker } = await import('../../mocks/browser');
   return worker.start();

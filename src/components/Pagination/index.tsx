@@ -1,6 +1,6 @@
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go';
-import styles from './pagination.module.css';
 import { useState } from 'react';
+import styles from './pagination.module.css';
 
 interface PaginationProps {
   pageSize: number;
@@ -8,20 +8,20 @@ interface PaginationProps {
   onPaginationChange: (pageSize: number, newPage: number) => void;
 }
 
-const Pagination = ({
+function Pagination({
   pageSize,
   currentPage,
   onPaginationChange,
-}: PaginationProps) => {
+}: PaginationProps) {
   const [page, setPage] = useState(currentPage);
 
   const handlePaginationChange = (actionType: 'increment' | 'decrement') => {
     let newPageNumber = page;
 
     if (actionType === 'increment') {
-      newPageNumber++;
+      newPageNumber += 1;
     } else {
-      newPageNumber--;
+      newPageNumber -= 1;
     }
 
     setPage(newPageNumber);
@@ -37,6 +37,7 @@ const Pagination = ({
           aria-disabled={page < 1}
           disabled={page < 1}
           data-testid="previous-button"
+          type="button"
         >
           <GoArrowLeft className={styles.icon} aria-hidden="true" />
           Previous
@@ -47,12 +48,13 @@ const Pagination = ({
         className={`${styles.actionButton} ${styles.incrementButton}`}
         onClick={() => handlePaginationChange('increment')}
         data-testid="next-button"
+        type="button"
       >
         Next
         <GoArrowRight className={styles.icon} aria-hidden="true" />
       </button>
     </div>
   );
-};
+}
 
 export default Pagination;

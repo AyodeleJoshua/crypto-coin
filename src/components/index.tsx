@@ -3,4 +3,6 @@ import Spinner from './Spinner';
 import Table from './Table';
 import TableLoader from './TableLoader';
 
-export { Pagination, Table, Spinner, TableLoader };
+export {
+  Pagination, Table, Spinner, TableLoader,
+};

@@ -12,13 +12,12 @@ interface TableProps {
   showPagination?: boolean;
   pageSize?: number;
   currentPage?: number;
-  total?: number;
   ariaLabel?: string;
   onPaginationChange?: (pageSize: number, newPage: number) => void;
   testId?: string;
 }
 
-const Table = ({
+function Table({
   columns,
   dataSource,
   showPagination = true,
@@ -27,7 +26,7 @@ const Table = ({
   ariaLabel = 'Table presenting data',
   onPaginationChange,
   testId,
-}: TableProps) => {
+}: TableProps) {
   return (
     <div className={styles.tableContainer}>
       <table className={styles.table} data-testid={testId}>
@@ -86,12 +85,12 @@ const Table = ({
           pageSize={pageSize as number}
           currentPage={currentPage as number}
           onPaginationChange={
-            onPaginationChange as (pageSize: number, newPage: number) => void
+            onPaginationChange as (ps: number, np: number) => void
           }
         />
       )}
     </div>
   );
-};
+}
 
 export default Table;
