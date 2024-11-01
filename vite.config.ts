@@ -11,17 +11,11 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  base: '/crypto-coin/',
   test: {
-    browser: {
-      enabled: true,
-      name: 'chromium',
-      provider: 'playwright',
-    },
-    typecheck: {
-      enabled: true,
-    },
+    environment: 'jsdom',
+    setupFiles: './tests/setup.ts',
   },
+  base: '/crypto-coin/',
   optimizeDeps: {
     exclude: ['js-big-decimal'],
   },

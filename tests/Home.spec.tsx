@@ -1,7 +1,7 @@
 import React from 'react';
-import { expect, it, describe } from 'vitest';
-import { render } from 'vitest-browser-react';
+import { render, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { it, describe, expect } from 'vitest';
 import Home from '../src/pages/Home';
 
 const queryClient = new QueryClient({
@@ -21,28 +21,31 @@ function HomepageWithQueryClientProvider() {
 describe('Home', () => {
   it('should render table in dom', async () => {
     const { getByTestId } = render(<HomepageWithQueryClientProvider />);
-
-    await expect.element(getByTestId('all-coins-table')).toBeInTheDocument();
+    const allCoinsTable = await waitFor(() => getByTestId('all-coins-table'));
+    await expect(allCoinsTable).toBeInTheDocument();
   });
 
   it('previous button should not be visible when page is first loaded', async () => {
-    const { getByTestId } = render(<HomepageWithQueryClientProvider />);
+    const { queryByTestId, getByTestId } = render(
+      <HomepageWithQueryClientProvider />,
+    );
+    await waitFor(() => getByTestId('all-coins-table'));
 
-    await expect
-      .element(getByTestId('previous-button'))
-      .not.toBeInTheDocument();
+    await expect(queryByTestId('previous-button')).not.toBeInTheDocument();
   });
 
   it('next button should be visible when page is first loaded', async () => {
     const { getByTestId } = render(<HomepageWithQueryClientProvider />);
+    await waitFor(() => getByTestId('all-coins-table'));
 
-    await expect.element(getByTestId('next-button')).toBeInTheDocument();
+    await expect(getByTestId('next-button')).toBeInTheDocument();
   });
 
   it('previous button should be visible when next button is clicked', async () => {
     const { getByTestId } = render(<HomepageWithQueryClientProvider />);
+    await waitFor(() => getByTestId('all-coins-table'));
 
     await getByTestId('next-button').click();
-    await expect.element(getByTestId('previous-button')).toBeInTheDocument();
+    await expect(getByTestId('previous-button')).toBeInTheDocument();
   });
 });
