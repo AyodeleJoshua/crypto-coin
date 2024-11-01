@@ -6,6 +6,7 @@ This is a simple web app that displays information on cryptocurrency coin prices
 - npm or yarn
 
 # User Experience Features
+- Accessibility: Web app is useable for persons with disability
 - Responsiveness: web app adapts to any view port including mobile
 - Pagination: Coin data is paginated to show 10 items per page
 - Optimistic Prefetching: Data for +1 page on table is prefetched so that user only sees loading state when page is first visited
