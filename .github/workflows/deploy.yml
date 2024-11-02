@@ -40,6 +40,8 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Integration Test
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
         run: npm run test
       - name: Build
         env:
