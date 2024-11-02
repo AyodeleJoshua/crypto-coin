@@ -24,32 +24,34 @@ This is a simple web app that displays information on cryptocurrency coin prices
 
 # Getting Started
 
-1. Clone the Repository
+1. Clone the Repository:
    Clone the repository to your local machine.
 
 git clone https://github.com/AyodeleJoshua/crypto-coin.git
 cd crypto-coin
 
-2. Install Dependencies
+2. Install Dependencies:
    Navigate to the project directory and install dependencies.
    `npm install`
 
-3. Environment Variables
+3. Environment Variables:
    Add .env file to root of the project
 
-4. Run the Application Locally
+4. Run the Application Locally:
    To start the development server, use the following command:
    `npm run dev`
 
 The application should start up on http://localhost:3000/crypto-coin/
 
-5. Build the Application for Production
+5. Build the Application for Production:
    To create an optimized production build, use the following command:
    `npm run build`
 
-# Unit Tests
+# Integration Tests
 
-The app has been tested decently. Test is done with react-testing-library(RTL) and data mocked with mock service worker(msw). To run tests, run
+The app has been tested decently. Test is done with react-testing-library(RTL) and data mocked with mock service worker(msw).
+Integration test has also been added as part of the workflow process. This means the build and deployment will fail when code is pushed to this repo if test fails
+To run tests, run
 `npm run test`
 
 # Files and Folders Organization
