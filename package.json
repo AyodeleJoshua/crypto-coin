@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:test": "vite --mode test",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest run --mode test",
+    "test": "vitest run",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -47,11 +46,5 @@
     "typescript-eslint": "^8.10.0",
     "vite": "^5.4.9",
     "vitest": "^2.1.4"
-  },
-  "msw": {
-    "workerDirectory": [
-      "./public"
-    ],
-    "homepage": "/crypto-coin"
   }
 }
