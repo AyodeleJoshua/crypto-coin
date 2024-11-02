@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw';
 import mockedAllCoins from './__mock_data__.json';
 
 const handlers = [
-  http.get(`/api/tickers/`, () => HttpResponse.json(mockedAllCoins)),
+  http.get('/api/tickers/', () => HttpResponse.json(mockedAllCoins)),
 ];
 
 export default handlers;
