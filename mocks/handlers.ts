@@ -4,14 +4,7 @@ import mockedAllCoins from './__mock_data__.json';
 import environmentVariables from '../src/utils/environmentVariables';
 
 const handlers = [
-  http.get(
-    `${
-      environmentVariables.testWithBaseUrl === 'true'
-        ? 'https://api.coinlore.net'
-        : ''
-    }/api/tickers/`,
-    () => HttpResponse.json(mockedAllCoins),
-  ),
+  http.get(`${environmentVariables.baseURL}/api/tickers/`, () => HttpResponse.json(mockedAllCoins)),
 ];
 
 export default handlers;
