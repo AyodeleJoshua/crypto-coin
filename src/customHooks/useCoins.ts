@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import getAllCoinsData from '../services/crypto.services';
 
 interface AllCoinsData {
@@ -11,12 +11,8 @@ interface AllCoinsData {
   }[];
 }
 
-const useCoins = () => {
+const useCoins = (queryParams: { page: number; pageSize: number }) => {
   const queryClient = useQueryClient();
-  const [queryParams, setQueryParams] = useState({
-    page: 0,
-    pageSize: 10,
-  });
 
   // This useeffect prefetches the next data so that users do not
   // see loading state when they go to next page.
@@ -56,8 +52,6 @@ const useCoins = () => {
     })),
     isAllCoinsFetchError,
     allCoinsError,
-    setQueryParams,
-    queryParams,
   };
 };
 
