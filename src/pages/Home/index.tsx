@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Spinner, Table } from '../../components';
 import styles from './home.module.css';
 import useCoins from '../../customHooks/useCoins';
@@ -10,14 +11,17 @@ const columns = [
 ];
 
 function Home() {
+  const [queryParams, setQueryParams] = useState({
+    page: 0,
+    pageSize: 10,
+  });
+
   const {
     isLoadingAllCoinsData,
     allCoinsData,
-    queryParams,
-    setQueryParams,
     isAllCoinsFetchError,
     allCoinsError,
-  } = useCoins();
+  } = useCoins(queryParams);
 
   return (
     <>
