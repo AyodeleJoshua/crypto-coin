@@ -26,13 +26,7 @@ function Home() {
       {!isLoadingAllCoinsData && allCoinsData && (
         <Table
           columns={columns}
-          dataSource={allCoinsData.map((coinData) => ({
-            ...coinData,
-            tsupply: `${Number(coinData.tsupply).toLocaleString()} ${
-              coinData.symbol
-            }`,
-            price_usd: `$${Number(coinData.price_usd)?.toLocaleString()}`,
-          }))}
+          dataSource={allCoinsData}
           showPagination
           currentPage={queryParams.page}
           pageSize={queryParams.pageSize}

@@ -47,7 +47,13 @@ const useCoins = () => {
 
   return {
     isLoadingAllCoinsData,
-    allCoinsData: allCoinsData?.data,
+    allCoinsData: allCoinsData?.data.map((coinData) => ({
+      ...coinData,
+      tsupply: `${Number(coinData.tsupply).toLocaleString()} ${
+        coinData.symbol
+      }`,
+      price_usd: `$${Number(coinData.price_usd)?.toLocaleString()}`,
+    })),
     isAllCoinsFetchError,
     allCoinsError,
     setQueryParams,
