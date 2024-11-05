@@ -64,14 +64,11 @@ function Table({
           <dl
             key={index}
             className={styles.smTableRow}
-            role="row"
             aria-rowindex={index + 1}
           >
             {columns.map((column) => (
               <div key={column.key} role="cell">
-                <dt role="columnheader" className={styles.columnHeader}>
-                  {column.title}
-                </dt>
+                <dt className={styles.columnHeader}>{column.title}</dt>
                 <dd>{data[column.key]}</dd>
               </div>
             ))}
