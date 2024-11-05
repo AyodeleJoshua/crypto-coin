@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Spinner, Table } from '../../components';
 import styles from './home.module.css';
-import useCoins from '../../customHooks/useCoinsQuery';
+import useCoinsQuery from '../../customHooks/useCoinsQuery';
 
 const columns = [
   { key: 'name', title: '💰 Coin' },
@@ -21,7 +21,7 @@ function Home() {
     allCoinsData,
     isAllCoinsFetchError,
     allCoinsError,
-  } = useCoins(queryParams);
+  } = useCoinsQuery(queryParams);
 
   return (
     <>
