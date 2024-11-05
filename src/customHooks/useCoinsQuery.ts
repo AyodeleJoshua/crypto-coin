@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import getAllCoinsData from '../services/crypto.services';
+import getAllCoinsData from '../services/coinlore.services';
 import { AllCoinsData } from '../utils/types';
 
+// Map to cache fetch result.
+// The app only show loading state on reload and before first data returns
+// Result can be cached to local storage but tend to reduce get and set time
 const resultCache: Record<string, string> = {};
 
 export const useCoins = (queryParams: { page: number; pageSize: number }) => {
@@ -28,10 +31,10 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
         if (onSuccessfulFetch) {
           onSuccessfulFetch(response);
         }
-        setIsLoading(false);
       } catch (err) {
         setError({ isError: true, message: err as string });
       }
+      setIsLoading(false);
     };
 
     const key = `allCoinsData-${queryParams.page}`;

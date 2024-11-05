@@ -5,7 +5,7 @@ const getRequest = async <ResponseType>(
   params: { start: number; limit: number },
 ): Promise<ResponseType> => {
   const response = await fetch(
-    `${environmentVariables.baseURL}${url}/?start=${params.start}&limit=${params.limit}`,
+    `${environmentVariables.baseURL}${url}?start=${params.start}&limit=${params.limit}`,
   );
   if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);

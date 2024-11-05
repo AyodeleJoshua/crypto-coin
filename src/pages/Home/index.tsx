@@ -42,7 +42,7 @@ function Home() {
       {!isLoadingAllCoinsData && isAllCoinsFetchError && (
         <div className={styles.errorContainer}>
           <div>
-            <p>{allCoinsError?.message}</p>
+            <p>{allCoinsError?.message.toString()}</p>
             <p>Try again later</p>
           </div>
         </div>
