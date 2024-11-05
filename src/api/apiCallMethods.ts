@@ -1,13 +1,18 @@
-import axiosInstance from './axiosInstance';
+import environmentVariables from '../utils/environmentVariables';
 
-const getRequest = async <ResponseType, paramsType>(
+const getRequest = async <ResponseType>(
   url: string,
-  params: paramsType,
+  params: { start: number; limit: number },
 ): Promise<ResponseType> => {
-  const response = await axiosInstance.get(url, {
-    params,
-  });
-  return response.data;
+  const response = await fetch(
+    `${environmentVariables.baseURL}${url}/?start=${params.start}&limit=${params.limit}`,
+  );
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+
+  const json = await response.json();
+  return json;
 };
 
 export default getRequest;
