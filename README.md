@@ -81,7 +81,7 @@ crypto-coin/
 |   |   |   └── index.tsx      # table loader component declarative structure
 │   │   └── index.tsx          # export of all all reuseable component happens here so that components folder act as a library for export of all unit components
 │   ├── customHooks/           # custom hooks
-|   |   └── useCoins.ts        # coins list fetching
+|   |   └── useCoinsQuery.ts        # coins list fetching
 │   ├── pages/                 # pages in app
 │   |   └── Home/              # brings together all components and general styles for homepage
 │   |       ├── home.module.css  # home page styles

@@ -12,7 +12,6 @@ interface TableProps {
   showPagination?: boolean;
   pageSize?: number;
   currentPage?: number;
-  ariaLabel?: string;
   onPaginationChange?: (pageSize: number, newPage: number) => void;
   testId?: string;
 }
@@ -23,7 +22,6 @@ function Table({
   showPagination = true,
   pageSize,
   currentPage,
-  ariaLabel = 'Table presenting data',
   onPaginationChange,
   testId,
 }: TableProps) {
@@ -58,7 +56,7 @@ function Table({
       </table>
       <div
         role="table"
-        aria-label={ariaLabel}
+        aria-label="Table presenting data"
         aria-rowcount={pageSize}
         className={styles.smTable}
       >
