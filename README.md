@@ -64,8 +64,7 @@ crypto-coin/
 |   └── handlers.ts            # handlers to intercept api call
 ├── src/                       # web app source code
 |   ├── api\                   # folder contains everything related to api methods and interceptors
-|   |   ├── apiCallMethods.ts  # export reuseable api methods
-|   |   └── axiosInstance.ts   # axios instance with interceptors for request and response. Ideally, logout and redirect to login page happens here when 401 status code is returned from external api
+|   |   └── apiCallMethods.ts  # export reuseable api methods\status code is returned from external api
 |   ├── assets\                # assets for app
 |   |   └── react.svg          # react.svg asset
 │   ├── components/            # reuseable components
