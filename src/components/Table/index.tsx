@@ -61,21 +61,21 @@ function Table({
         className={styles.smTable}
       >
         {dataSource.map((data, index) => (
-          <div
+          <dl
             key={index}
             className={styles.smTableRow}
             role="row"
             aria-rowindex={index + 1}
           >
             {columns.map((column) => (
-              <div key={column.key} className={styles.smTableCell}>
-                <span role="columnheader" className={styles.columnHeader}>
+              <div key={column.key} role="cell">
+                <dt role="columnheader" className={styles.columnHeader}>
                   {column.title}
-                </span>
-                <span role="cell">{data[column.key]}</span>
+                </dt>
+                <dd>{data[column.key]}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         ))}
       </div>
       {showPagination && (
