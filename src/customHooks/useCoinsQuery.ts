@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import getAllCoinsData from '../services/crypto.services';
 import { AllCoinsData } from '../utils/types';
 
-const cache: Record<string, string> = {};
+const resultCache: Record<string, string> = {};
 
 export const useCoins = (queryParams: { page: number; pageSize: number }) => {
   const [data, setData] = useState<AllCoinsData | null>(null);
@@ -23,7 +23,7 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
       try {
         const response = await getAllCoinsData(start, queryParams.pageSize);
 
-        cache[key] = JSON.stringify(response);
+        resultCache[key] = JSON.stringify(response);
 
         if (onSuccessfulFetch) {
           onSuccessfulFetch(response);
@@ -33,17 +33,22 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
         setError({ isError: true, message: err as string });
       }
     };
+
     const key = `allCoinsData-${queryParams.page}`;
 
-    // Optimistically fetch next data to avoid user waiting for on next button click
-    runQuery(
-      `allCoinsData-${queryParams.page + 1}`,
-      (queryParams.page + 1) * queryParams.pageSize,
-      false,
-    );
+    // Optimistically fetch next data
+    // to avoid user waiting for data loading on next button click
+    // if data is not in cache
+    if (!resultCache[`allCoinsData-${queryParams.page + 1}`]) {
+      runQuery(
+        `allCoinsData-${queryParams.page + 1}`,
+        (queryParams.page + 1) * queryParams.pageSize,
+        false,
+      );
+    }
 
-    if (cache[key]) {
-      setData(JSON.parse(cache[key]));
+    if (resultCache[key]) {
+      setData(JSON.parse(resultCache[key]));
     } else {
       runQuery(
         key,
