@@ -1,6 +1,6 @@
 # Crypto-coin
 
-This is a simple web app that displays information on cryptocurrency coin prices based on coinlore api data. This app utilizes React + vite, axios for api call, react query for server side state management, react testing library(RTL) for integration test and Mock service worker(MSW) for test data mocking.
+This is a simple web app that displays information on cryptocurrency coin prices based on coinlore api data. This app utilizes React + vite, react testing library(RTL) for integration test and Mock service worker(MSW) for test data mocking.
 
 # Prerequisiite
 
