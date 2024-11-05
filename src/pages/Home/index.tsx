@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Spinner, Table } from '../../components';
 import styles from './home.module.css';
-import useCoins from '../../customHooks/useCoins';
+import useCoins from '../../customHooks/useCoinsQuery';
 
 const columns = [
   { key: 'name', title: '💰 Coin' },
