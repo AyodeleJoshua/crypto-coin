@@ -1,6 +1,7 @@
-import { GoArrowLeft, GoArrowRight } from 'react-icons/go';
 import { useState } from 'react';
 import styles from './pagination.module.css';
+import GoArrowLeft from '../../assets/arrowLeft.svg';
+import GoArrowRight from '../../assets/arrowRight.svg';
 
 interface PaginationProps {
   pageSize: number;
@@ -39,7 +40,12 @@ function Pagination({
           data-testid="previous-button"
           type="button"
         >
-          <GoArrowLeft className={styles.icon} aria-hidden="true" />
+          <img
+            src={GoArrowLeft}
+            alt=""
+            aria-hidden="true"
+            className={styles.icon}
+          />
           Previous
         </button>
       )}
@@ -51,7 +57,12 @@ function Pagination({
         type="button"
       >
         Next
-        <GoArrowRight className={styles.icon} aria-hidden="true" />
+        <img
+          src={GoArrowRight}
+          className={styles.icon}
+          aria-hidden="true"
+          alt=""
+        />
       </button>
     </div>
   );
