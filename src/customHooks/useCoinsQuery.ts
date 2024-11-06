@@ -15,7 +15,7 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
   useEffect(() => {
     const runQuery = async (
       key: string,
-      start: string,
+      start: number,
       activateLoading: boolean,
       onSuccessfulFetch?: <T>(fetchedData: T) => void,
     ) => {
@@ -24,10 +24,7 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
       }
 
       try {
-        const response = await getAllCoinsData(
-          start,
-          `${queryParams.pageSize}`,
-        );
+        const response = await getAllCoinsData(start, queryParams.pageSize);
 
         resultCache[key] = JSON.stringify(response);
 
@@ -48,7 +45,7 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
     if (!resultCache[`allCoinsData-${queryParams.page + 1}`]) {
       runQuery(
         `allCoinsData-${queryParams.page + 1}`,
-        `${(queryParams.page + 1) * queryParams.pageSize}`,
+        (queryParams.page + 1) * queryParams.pageSize,
         false,
       );
     }
@@ -58,7 +55,7 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
     } else {
       runQuery(
         key,
-        `${queryParams.page * queryParams.pageSize}`,
+        queryParams.page * queryParams.pageSize,
         true,
         (result) => setData(result as AllCoinsData),
       );
