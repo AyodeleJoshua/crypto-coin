@@ -29,7 +29,7 @@ function Table({
     <div className={styles.tableContainer}>
       <table className={styles.table} data-testid={testId}>
         <thead className={styles.tableHead}>
-          <tr>
+          <tr className={styles.headerRow}>
             {columns.map((column) => (
               <th scope="col" key={column.key} className={styles.tableCell}>
                 {column.title}
@@ -37,44 +37,19 @@ function Table({
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className={styles.tableBody}>
           {dataSource.map((data, index) => (
-            <tr
-              key={index}
-              className={`${styles.tableRow} ${
-                index % 2 === 0 ? styles.greyedTableRow : ''
-              }`}
-            >
+            <tr key={index} className={styles.tableRow}>
               {columns.map((column) => (
                 <td key={column.key} className={styles.tableCell}>
-                  {data[column.key]}
+                  <span className={styles.mobileCellTitle}>{column.title}</span>
+                  <span>{data[column.key]}</span>
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
-      <div
-        role="table"
-        aria-label="Table presenting data"
-        aria-rowcount={pageSize}
-        className={styles.smTable}
-      >
-        {dataSource.map((data, index) => (
-          <dl
-            key={index}
-            className={styles.smTableRow}
-            aria-rowindex={index + 1}
-          >
-            {columns.map((column) => (
-              <div key={column.key} role="cell">
-                <dt className={styles.columnHeader}>{column.title}</dt>
-                <dd>{data[column.key]}</dd>
-              </div>
-            ))}
-          </dl>
-        ))}
-      </div>
       {showPagination && (
         <Pagination
           pageSize={pageSize as number}
