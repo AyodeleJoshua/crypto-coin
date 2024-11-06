@@ -65,9 +65,10 @@ export const useCoins = (queryParams: { page: number; pageSize: number }) => {
   return {
     allCoinsData: data?.data.map((coinData) => ({
       ...coinData,
-      tsupply: `${Number(coinData.tsupply).toLocaleString()} ${
-        coinData.symbol
-      }`,
+      tsupply: `${Number(coinData.tsupply).toLocaleString('en', {
+        notation: 'compact',
+        maximumFractionDigits: 3,
+      })} ${coinData.symbol}`,
       price_usd: `$${Number(coinData.price_usd)?.toLocaleString()}`,
     })),
     isLoadingAllCoinsData: isLoading,
