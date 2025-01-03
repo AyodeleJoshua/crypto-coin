@@ -1,12 +1,18 @@
 import environmentVariables from '../utils/environmentVariables';
 
 const getRequest = async <ResponseType>(
-  url: string,
-  params: { start: number; limit: number },
+  endpoint: string,
+  params?: Record<string, string | number>,
 ): Promise<ResponseType> => {
-  const response = await fetch(
-    `${environmentVariables.baseURL}${url}?start=${params.start}&limit=${params.limit}`,
-  );
+  let url = new URL(`${environmentVariables.baseURL}${endpoint}`);
+  if (params) {
+    const paramKeys = Object.keys(params);
+    paramKeys.forEach((paramKey) =>
+      url.searchParams.set(paramKey, params[paramKey] as string),
+    );
+  }
+
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);
   }

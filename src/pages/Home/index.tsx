@@ -1,16 +1,29 @@
 import { useState } from 'react';
-import { Spinner, Table } from '../../components';
+import { Modal, Spinner, Table } from '../../components';
 import styles from './home.module.css';
 import useCoinsQuery from '../../customHooks/useCoinsQuery';
 
-const columns = [
-  { key: 'name', title: '💰 Coin' },
-  { key: 'symbol', title: '📄 Code' },
-  { key: 'price_usd', title: '🤑 Price' },
-  { key: 'tsupply', title: '📈 Total Supply' },
-];
-
 function Home() {
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [itemDetails, setItemDetails] = useState<
+    Record<string, string | number>
+  >({});
+
+  const columns = [
+    {
+      key: 'name',
+      title: '💰 Coin',
+      isActionTrigger: true,
+      handleAction: (data: Record<string, string | number>) => {
+        setShowDetailsModal(true);
+        setItemDetails(data);
+      },
+    },
+    { key: 'symbol', title: '📄 Code' },
+    { key: 'price_usd', title: '🤑 Price' },
+    { key: 'tsupply', title: '📈 Total Supply' },
+  ];
+
   const [queryParams, setQueryParams] = useState({
     page: 0,
     pageSize: 10,
@@ -34,7 +47,9 @@ function Home() {
           showPagination
           currentPage={queryParams.page}
           pageSize={queryParams.pageSize}
-          onPaginationChange={(_, newPage) => setQueryParams({ ...queryParams, page: newPage })}
+          onPaginationChange={(_, newPage) =>
+            setQueryParams({ ...queryParams, page: newPage })
+          }
           testId="all-coins-table"
         />
       )}
@@ -47,6 +62,23 @@ function Home() {
           </div>
         </div>
       )}
+
+      {/* Modal */}
+      <Modal
+        show={showDetailsModal}
+        cancelModal={() => {
+          setShowDetailsModal(false);
+        }}
+      >
+        <table>
+          {Object.keys(itemDetails).map((d, i) => (
+            <tr key={i}>
+              <th style={{ textAlign: 'left' }}>{d}</th>
+              <td>{itemDetails[d]}</td>
+            </tr>
+          ))}
+        </table>
+      </Modal>
     </>
   );
 }

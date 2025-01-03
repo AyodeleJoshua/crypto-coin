@@ -4,6 +4,8 @@ import styles from './table.module.css';
 type TableColumnType = {
   key: string;
   title: string;
+  isActionTrigger?: boolean;
+  handleAction?: (columnData: Record<string, string | number>) => void;
 };
 
 interface TableProps {
@@ -30,11 +32,13 @@ function Table({
       <table className={styles.table} data-testid={testId}>
         <thead className={styles.tableHead}>
           <tr className={styles.headerRow}>
-            {columns.map((column) => (
-              <th scope="col" key={column.key} className={styles.tableCell}>
-                {column.title}
-              </th>
-            ))}
+            {columns.map((column) => {
+              return (
+                <th scope="col" key={column.key} className={styles.tableCell}>
+                  {column.title}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody className={styles.tableBody}>
@@ -43,7 +47,20 @@ function Table({
               {columns.map((column) => (
                 <td key={column.key} className={styles.tableCell}>
                   <span className={styles.mobileCellTitle}>{column.title}</span>
-                  <span>{data[column.key]}</span>
+                  <span>
+                    {column.isActionTrigger ? (
+                      <button
+                        onClick={() =>
+                          column.handleAction && column.handleAction(data)
+                        }
+                        className={styles.cellTriggerButton}
+                      >
+                        {data[column.key]}
+                      </button>
+                    ) : (
+                      data[column.key]
+                    )}
+                  </span>
                 </td>
               ))}
             </tr>
