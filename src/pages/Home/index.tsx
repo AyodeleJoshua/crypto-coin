@@ -47,9 +47,7 @@ function Home() {
           showPagination
           currentPage={queryParams.page}
           pageSize={queryParams.pageSize}
-          onPaginationChange={(_, newPage) =>
-            setQueryParams({ ...queryParams, page: newPage })
-          }
+          onPaginationChange={(_, newPage) => setQueryParams({ ...queryParams, page: newPage })}
           testId="all-coins-table"
         />
       )}
